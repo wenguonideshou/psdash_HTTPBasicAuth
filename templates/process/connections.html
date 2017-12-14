@@ -1,0 +1,31 @@
+{% extends "process.html" %}
+{% block process_content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>fd</th>
+                <th>family</th>
+                <th>type</th>
+                <th>local address</th>
+                <th>local port</th>
+                <th>remote address</th>
+                <th>remote port</th>
+                <th>status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in connections %}
+                <tr>
+                    <td>{{ c.fd }}</td>
+                    <td>{{ c.family }}</td>
+                    <td>{{ c.type }}</td>
+                    <td>{{ c.local_addr_host if c.local_addr_host}}</td>
+                    <td>{{ c.local_addr_port if c.local_addr_port}}</td>
+                    <td>{{ c.remote_addr_host if c.remote_addr_host }}</td>
+                    <td>{{ c.remote_addr_port if c.remote_addr_port}}</td>
+                    <td>{{ c.state }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

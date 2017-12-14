@@ -1,0 +1,23 @@
+{% extends "process.html" %}
+{% block process_content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>PID</th>
+                <th>Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in children %}
+                <tr>
+                    <td>{{ p.pid }}</td>
+                    <td title="{{ p.cmdline }}">
+                        <a href="{{ url_for(".process", pid=p.pid) }}">{{ p.name }}</a>
+                    </td>
+                    <td>{{ p.status }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "process.html" %}
+{% block process_content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>fd</th>
+                <th>path</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in files %}
+                <tr>
+                    <td>{{ f.fd }}</td>
+                    <td>{{ f.path.decode("utf-8") }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

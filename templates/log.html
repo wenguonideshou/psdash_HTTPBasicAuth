@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+    <div id="log" class="box"
+         data-read-log-url="{{ url_for(".view_log", filename=filename, seek_tail=0) }}"
+         data-read-log-tail-url="{{ url_for(".view_log", filename=filename, seek_tail=1) }}"
+         data-search-log-url="{{ url_for(".search_log", filename=filename) }}">
+        <div class="box-header">
+            <span>{{ filename }}</span>
+        </div>
+        <div class="box-content">
+            <div class="controls">
+                <div class="row">
+                    <div class="col-md-1">
+                        <button id="scroll-down-btn" class="btn btn-sm btn-info">
+                            <span class="glyphicon glyphicon-arrow-down"></span> Scroll to bottom
+                        </button>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="mode-text pull-left" style="margin-left: 35px">Tail mode (Press s to search)</span>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="status-text pull-right" style="display: none"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <form id="search-form">
+                            <input id="search-input" type="text" class="search-text form-control" placeholder="Search..." tabindex="1">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <pre id="log-content" data-filename="{{ filename }}" data-mode="tail">{{ content.decode('utf-8') }}</pre>
+        </div>
+    </div>
+{% endblock %}

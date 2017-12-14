@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html class="login-alone">
+    <head>
+        <title>Login</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <link href="http://www.js-css.cn/divcss/login/login7/res/ui/css/screen.css?v=3.9" media="screen, projection" rel="stylesheet" type="text/css" >
+        <link rel="stylesheet" type="text/css" href="http://www.js-css.cn/divcss/login/login7/res/ui/css/base.css?v=3.9">
+        <link rel="stylesheet" type="text/css" href="http://www.js-css.cn/divcss/login/login7/res/passport/css/login.css?v=3.9">
+        <!--[if lt IE 9]>
+        <script>
+        window.location="homepage/support";
+        </script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="logina-logo" style="height: 55px">
+            
+        </div>
+        <div class="logina-main main clearfix">
+            <div class="tab-con">
+                <form id="form-login" method="POST" action="">
+                    <div id='login-error' class="error-tip"></div>
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>账户</th>
+                                <td width="245">
+                                {{ form.hidden_tag() }}
+                                {{form.username(id="email", type="text", placeholder="电子邮箱/手机号", autocomplete="off")}}
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>密码</th>
+                                <td width="245">
+                                {{form.password(id="password", type="password", placeholder="请输入密码", autocomplete="off")}}
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+
+                            <tr class="find">
+                                <th></th>
+                                <td>
+                                    <div>
+                                        <label class="checkbox" for="rememberme">
+                                        {{form.rememberme(style="height: auto;", id="chk11")}}
+                                        记住我</label>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td width="245"><input class="confirm" type="submit" value="登  录"></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <input type="hidden" name="refer" value="site/">
+                </form>
+            </div>
+
+        </div>
+        <div id="footer">
+            <div class="copyright">版权所有</div>
+        </div>
+        <script src="res/skin/js/lib/jquery-2.0.3.min.js?v=3.9"></script>
+        <script src="res/skin/js/ui.common.js?v=3.9"></script>
+        <script src="res/passport/js/login.js?v=3.9"></script>       
+    </body>
+</html>

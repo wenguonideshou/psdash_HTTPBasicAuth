@@ -1,0 +1,21 @@
+{% extends "process.html" %}
+{% block process_content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Thread id</th>
+                <th>User time</th>
+                <th>System time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in threads %}
+                <tr>
+                    <td>{{ t.id }}</td>
+                    <td>{{ t.cpu_time_user }}</td>
+                    <td>{{ t.cpu_time_system }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

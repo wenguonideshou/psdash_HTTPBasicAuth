@@ -1,0 +1,19 @@
+{% extends "process.html" %}
+{% block process_content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for var, value in process_environ.iteritems() %}
+                <tr>
+                    <td>{{ var.decode("utf-8") }}</td>
+                    <td>{{ value.decode("utf-8") }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
