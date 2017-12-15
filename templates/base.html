@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>psDash - Linux system dashboard</title>
+        <title>psDash - 简便的Linux系统管理面板</title>
         <link href="{{ url_for(".static", filename="css/bootstrap.min.css") }}" rel="stylesheet">
         <link href="{{ url_for(".static", filename="css/psdash.css") }}" rel="stylesheet">
-        <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.lug.ustc.edu.cn/css?family=Ubuntu:300,400' rel='stylesheet' type='text/css'>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -20,20 +20,20 @@
             <div class="header">
                 <div class="logo">
                     <a href="{{ url_for(".index") }}">
-                        <span class="app-name"># psdash <small>v0.6.0</small></span>
+                        <span class="app-name">PSdash<small></small></span>
                     </a>
                 </div>
                 <div class="top-nav">
                     <div class="host-info">
                         <div class="name">
-                             <span class="hostname">{{ hostname }}</span>
+                             <span class="hostname">主机名：{{ hostname }}</span>
                         </div>
                         <div class="info">
-                            {{ os }}, uptime: {{ uptime }}
+                            系统：{{ os }}, 在线时间: {{ uptime }}
                         </div>
                     </div>
                     <div class="dropdown">
-                        <span class="dropdown-text">Switch server:</span>
+                        <span class="dropdown-text">切换节点:</span>
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                             {{ current_node.name }} ({{ current_node.get_id() }})
                             <span class="caret"></span>
@@ -53,31 +53,31 @@
                             <li {% if page == "overview" %}class="active"{% endif %}>
                                 <a href="{{ url_for(".index") }}">
                                     <span class="glyphicon glyphicon-th"></span>
-                                    <span class="option-text">Dashboard</span>
+                                    <span class="option-text">总览</span>
                                 </a>
                             </li>
                             <li {% if page == "processes" %}class="active"{% endif %}>
                                 <a href="{{ url_for(".processes") }}">
                                     <span class="glyphicon glyphicon-tasks"></span>
-                                    <span class="option-text">Processes</span>
+                                    <span class="option-text">进程</span>
                                 </a>
                             </li>
                             <li {% if page == "network" %}class="active"{% endif %}>
                                 <a href="{{ url_for(".view_networks") }}">
                                     <span class="glyphicon glyphicon-transfer"></span>
-                                    <span class="option-text">Network</span>
+                                    <span class="option-text">网络</span>
                                 </a>
                             </li>
                             <li {% if page == "disks" %}class="active"{% endif %}>
                                 <a href="{{ url_for(".view_disks") }}">
                                     <span class="glyphicon glyphicon-hdd"></span>
-                                    <span class="option-text">Disks</span>
+                                    <span class="option-text">磁盘</span>
                                 </a>
                             </li>
                             <li {% if page == "logs" %}class="active"{% endif %}>
                                 <a href="{{ url_for(".view_logs") }}">
                                     <span class="glyphicon glyphicon-book"></span>
-                                    <span class="option-text">Logs</span>
+                                    <span class="option-text">日志</span>
                                 </a>
                             </li>
                         </ul>

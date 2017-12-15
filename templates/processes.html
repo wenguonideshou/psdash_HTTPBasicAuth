@@ -8,18 +8,18 @@
     {% endif %}
     <div id="processes" class="box">
         <div class="box-header">
-            <span>Processes</span>
+            <span>进程</span>
         </div>
         <div class="box-content">
             <ul class="nav nav-tabs" role="tablist">
                 <li {% if filter == "all" %}class="active"{% endif %}>
                     <a href="{{ url_for(".processes", sort=sort, order=order, filter="all") }}">
-                        All <span class="badge all">{{ num_procs }}</span>
+                        全部 <span class="badge all">{{ num_procs }}</span>
                     </a>
                 </li>
                 <li {% if filter == "user" %}class="active"{% endif %}>
                     <a href="{{ url_for(".processes", sort=sort, order=order, filter="user") }}">
-                        User processes <span class="badge">{{ num_user_procs }}</span>
+                        用户进程 <span class="badge">{{ num_user_procs }}</span>
                     </a>
                 </li>
             </ul>
@@ -27,23 +27,23 @@
                 <thead>
                     <tr>
                         <th>
-                            <a href="{{ url_for(".processes", sort="pid", order=next_order, filter=filter) }}">PID</a>
+                            <a href="{{ url_for(".processes", sort="pid", order=next_order, filter=filter) }}">进程ID</a>
                             {{ order_icon|safe if sort == "pid"}}
                         </th>
                         <th>
-                            <a href="{{ url_for(".processes", sort="name", order=next_order, filter=filter) }}">Name</a>
+                            <a href="{{ url_for(".processes", sort="name", order=next_order, filter=filter) }}">进程名</a>
                             {{ order_icon|safe if sort == "name"}}
                         </th>
                         <th>
-                            <a href="{{ url_for(".processes", sort="user", order=next_order, filter=filter) }}">User</a>
+                            <a href="{{ url_for(".processes", sort="user", order=next_order, filter=filter) }}">所属用户</a>
                             {{ order_icon|safe if sort == "user"}}
                         </th>
                         <th>
-                            <a href="{{ url_for(".processes", sort="status", order=next_order, filter=filter) }}">Status</a>
+                            <a href="{{ url_for(".processes", sort="status", order=next_order, filter=filter) }}">状态</a>
                             {{ order_icon|safe if sort == "status"}}
                         </th>
                         <th>
-                            <a href="{{ url_for(".processes", sort="created", order=next_order, filter=filter) }}">Created</a>
+                            <a href="{{ url_for(".processes", sort="created", order=next_order, filter=filter) }}">创建时间</a>
                             {{ order_icon|safe if sort == "created"}}
                         </th>
                         <th title="Resident Set Size">
@@ -55,11 +55,11 @@
                             {{ order_icon|safe if sort == "mem_vms"}}
                         </th>
                         <th>
-                            <a href="{{ url_for(".processes", sort="mem_percent", order=next_order, filter=filter) }}">Memory %</a>
+                            <a href="{{ url_for(".processes", sort="mem_percent", order=next_order, filter=filter) }}">内存占用</a>
                             {{ order_icon|safe if sort == "mem_percent"}}
                         </th>
                         <th>
-                            <a href="{{ url_for(".processes", sort="cpu_percent", order=next_order, filter=filter) }}">CPU %</a>
+                            <a href="{{ url_for(".processes", sort="cpu_percent", order=next_order, filter=filter) }}">CPU占用</a>
                             {{ order_icon|safe if sort == "cpu_percent"}}
                         </th>
                     </tr>
@@ -77,8 +77,8 @@
                           <td>{{ p.created|fromtimestamp }}</td>
                           <td>{{ p.mem_rss|filesizeformat }}</td>
                           <td>{{ p.mem_vms|filesizeformat }}</td>
-                          <td>{{ p.mem_percent|round }}</td>
-                          <td>{{ p.cpu_percent }}</td>
+                          <td>{{ p.mem_percent|round }}%</td>
+                          <td>{{ p.cpu_percent }}%</td>
                         </tr>
                     {% endfor %}
                 </tbody>

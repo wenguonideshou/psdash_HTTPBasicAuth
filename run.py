@@ -16,17 +16,18 @@ import zerorpc
 from psdash import __version__
 from psdash.node import LocalNode, RemoteNode
 from psdash.run import PsDashRunner
-
+from datetime import datetime, timedelta
 
 logger = getLogger('psdash.run')
 
-def fromtimestamp(value, dateformat='%Y-%m-%d %H:%M:%S'):
-    dt = datetime.fromtimestamp(int(value))
-    return dt.strftime(dateformat)
 
 class DashRunner(PsDashRunner):
     def _create_app(self, config=None):
         app = Flask(__name__)
+        #app.debug=True
+        from web import fromtimestamp
+        app.add_template_filter(fromtimestamp)
+        app.config.PSDASH_REGISTER_INTERVAL = 10
         app.psdash = self
         app.config.from_envvar('PSDASH_CONFIG', silent=True)
         if config and isinstance(config, dict):
@@ -35,7 +36,6 @@ class DashRunner(PsDashRunner):
         # If the secret key is not read from the config just set it to something.
         if not app.secret_key:
             app.secret_key = 'whatisthissourcery'
-        app.add_template_filter(fromtimestamp)
         from web import webapp
         prefix = app.config.get('PSDASH_URL_PREFIX')
         if prefix:
@@ -46,9 +46,9 @@ class DashRunner(PsDashRunner):
 
 
 def main():
-    r = PsDashRunner.create_from_cli_args()
+    r=DashRunner.create_from_cli_args()
     r.run()
-    
+
 
 if __name__ == '__main__':
     main()

@@ -2,23 +2,23 @@
 {% block process_content %}
     <table class="table">
         <tr class="skip-border">
-            <td>PID</td>
+            <td>进程ID</td>
             <td>{{ process.pid }}</td>
         </tr>
         {% if process.parent_name %}
         <tr>
-            <td>Parent</td>
+            <td>父进程</td>
             <td><a href="{{ url_for(".process", pid=process.ppid) }}">{{ process.parent_name }}</a> ({{ process.ppid }})</td>
         </tr>
         {% endif %}
         <tr>
-            <td>Command</td>
+            <td>命令</td>
             <td>
                 {{ process.cmdline.decode("utf-8") }}
             </td>
         </tr>
         <tr>
-            <td>User</td>
+            <td>所属用户</td>
             <td>{{ process.user or "-"}}</td>
         </tr>
         <tr>
@@ -61,7 +61,7 @@
         </tr>
 
         <tr>
-            <td>Memory</td>
+            <td>内存</td>
             <td>
                 <table class="table table-bordered">
                     <tr>
@@ -96,37 +96,35 @@
             </td>
         </tr>
         <tr>
-            <td>Terminal</td>
+            <td>终端</td>
             <td>{{ process.terminal }}</td>
         </tr>
         <tr>
-            <td>Status</td>
+            <td>状态</td>
             <td>{{ process.status }}</td>
         </tr>
         <tr>
-            <td>Nice</td>
+            <td>优先级</td>
             <td>{{ process.nice }}</td>
         </tr>
         <tr>
-            <td>I/O Nice</td>
+            <td>I/O优先级</td>
             <td>class: {{ process.io_nice_class }}, value: {{ process.io_nice_value }}</td>
         </tr>
         <tr>
-            <td>CWD</td>
+            <td>当前目录</td>
             <td>{{ process.cwd.decode("utf-8") }}</td>
         </tr>
         <tr>
-            <td># File-descriptors</td>
+            <td>文件描述符</td>
             <td>{{ process.num_files }}</td>
         </tr>
         <tr>
-            <td># Threads</td>
+            <td>线程</td>
             <td>{{ process.num_threads }}</td>
         </tr>
         <tr>
-            <td>
-                # Context-switches
-            </td>
+            <td>上下文切换</td>
             <td>
                 <table class="table table-bordered">
                     <tr>

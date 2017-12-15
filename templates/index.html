@@ -8,19 +8,19 @@
             <div class="box-content">
                 <table class="table">
                     <tr>
-                        <td class="label-col">Load average</td>
+                        <td class="label-col">负载</td>
                         <td class="load" style="word-spacing: 10px;">{{ load_avg[0]|round(2) }} {{ load_avg[1]|round(2) }} {{ load_avg[2]|round(2) }}</td>
                     </tr>
                     <tr>
-                        <td class="label-col">User</td>
+                        <td class="label-col">用户占用</td>
                         <td class="user">{{ cpu.user }} %</td>
                     </tr>
                     <tr>
-                        <td class="label-col">System</td>
+                        <td class="label-col">系统占用</td>
                         <td class="system">{{ cpu.system }} %</td>
                     </tr>
                     <tr>
-                        <td class="label-col">Idle</td>
+                        <td class="label-col">空闲</td>
                         <td class="idle">{{ cpu.idle }} %</td>
                     </tr>
                     <tr>
@@ -28,7 +28,7 @@
                         <td class="iowait">{{ cpu.iowait }} %</td>
                     </tr>
                     <tr>
-                        <td class="label-col">Cores</td>
+                        <td class="label-col">核心数</td>
                         <td class="iowait">{{ num_cpus }}</td>
                     </tr>
                 </table>
@@ -36,28 +36,28 @@
         </div>
         <div class="box memory">
             <div class="box-header">
-                <span>Memory</span>
+                <span>内存</span>
             </div>
             <div class="box-content">
                 <table class="table">
                     <tr>
-                        <td class="label-col">Total</td>
+                        <td class="label-col">容量</td>
                         <td class="total">{{ memory.total|filesizeformat }}</td>
                     </tr>
                     <tr>
-                        <td class="label-col">Available</td>
+                        <td class="label-col">可用内存</td>
                         <td class="available">{{ memory.available|filesizeformat }}</td>
                     </tr>
                     <tr>
-                        <td class="label-col">Used <small>(excl. cache &amp; buffers)</small></td>
+                        <td class="label-col">已使用<small>(不包括 cache &amp; buffers)</small></td>
                         <td class="used_excl">{{ (memory.total - memory.available)|filesizeformat }} ({{ memory.percent }} %)</td>
                     </tr>
                     <tr>
-                        <td class="label-col">Used <small>(incl. cache &amp; buffers)</small></td>
+                        <td class="label-col">已使用<small>(包括 cache &amp; buffers)</small></td>
                         <td class="used_incl">{{ memory.used|filesizeformat }}</td>
                     </tr>
                     <tr>
-                        <td class="label-col">Free</td>
+                        <td class="label-col">空闲内存</td>
                         <td class="free">{{ memory.free|filesizeformat }}</td>
                     </tr>
                 </table>
@@ -65,14 +65,14 @@
         </div>
         <div class="box network">
             <div class="box-header">
-                <span>Network</span>
+                <span>网络</span>
             </div>
             <div class="box-content">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Interface</th>
-                            <th>IP</th>
+                            <th>网卡</th>
+                            <th>IP地址</th>
                             <th>RX/s</th>
                             <th>TX/s</th>
                         </tr>
@@ -92,17 +92,17 @@
         </div>
         <div class="box disks">
             <div class="box-header">
-                <span>Disks</span>
+                <span>硬盘</span>
             </div>
             <div class="box-content">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Device</th>
-                            <th>Mounted</th>
-                            <th>Total</th>
-                            <th>Used</th>
-                            <th>Free</th>
+                            <th>分区</th>
+                            <th>挂载点</th>
+                            <th>容量</th>
+                            <th>已使用</th>
+                            <th>已使用</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -126,15 +126,15 @@
             <div class="box-content">
                 <table class="table">
                     <tr>
-                        <td class="label-col">Total</td>
+                        <td class="label-col">容量</td>
                         <td class="total">{{ swap.total|filesizeformat }}</td>
                     </tr>
                     <tr>
-                        <td class="label-col">Used</td>
+                        <td class="label-col">已使用</td>
                         <td class="used">{{ swap.used|filesizeformat }} ({{ swap.percent }} %)</td>
                     </tr>
                     <tr>
-                        <td class="label-col">Free</td>
+                        <td class="label-col">空闲</td>
                         <td class="free">{{ swap.free|filesizeformat }}</td>
                     </tr>
                     <tr>
@@ -150,15 +150,15 @@
         </div>
         <div class="box users">
             <div class="box-header">
-                <span>Users</span>
+                <span>当前用户</span>
             </div>
             <div class="box-content">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>User</th>
-                            <th>Session started</th>
-                            <th>Host</th>
+                            <th>用户名</th>
+                            <th>登录时间</th>
+                            <th>登录IP</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -10,14 +10,15 @@ from werkzeug.local import LocalProxy
 from psdash.helpers import socket_families, socket_types
 from flask_httpauth import HTTPBasicAuth
 from psdash.run import PsDashRunner
-
+import platform
 
 
 auth = HTTPBasicAuth()
 logger = logging.getLogger('psdash.web')
+webapp = Blueprint('psdash', __name__, static_folder='static')
 
 users = {
-    "admin": "admin",
+    "admin": "anlu",
 }
 
 
@@ -39,12 +40,12 @@ current_node = LocalProxy(get_current_node)
 current_service = LocalProxy(get_current_service)
 
 
-@app.context_processor
+@webapp.context_processor
 def inject_nodes():
     return {"current_node": current_node, "nodes": current_app.psdash.get_nodes()}
 
 
-@app.context_processor
+@webapp.context_processor
 def inject_header_data():
     sysinfo = current_service.get_sysinfo()
     uptime = timedelta(seconds=sysinfo['uptime'])
@@ -55,21 +56,20 @@ def inject_header_data():
         'uptime': uptime
     }
 
-@app.url_defaults
+@webapp.url_defaults
 def add_node(endpoint, values):
     values.setdefault('node', g.node)
 
 
-@app.before_request
+@webapp.before_request
 def add_node():
     g.node = request.args.get('node', current_app.psdash.LOCAL_NODE)
 
 
-@app.before_request
+@webapp.before_request
 def check_access():
     if not current_node:
-        return 'Unknown psdash node specified', 404
-
+        return '未知节点', 404
     allowed_remote_addrs = current_app.config.get('PSDASH_ALLOWED_REMOTE_ADDRESSES')
     if allowed_remote_addrs:
         if request.remote_addr not in allowed_remote_addrs:
@@ -78,10 +78,10 @@ def check_access():
                 request.remote_addr
             )
             current_app.logger.debug('Allowed addresses: %s', allowed_remote_addrs)
-            return 'Access denied', 401
+            return '拒绝访问', 401
 
 
-@app.before_request
+@webapp.before_request
 def setup_client_id():
     if 'client_id' not in session:
         client_id = uuid.uuid4()
@@ -89,19 +89,26 @@ def setup_client_id():
         session['client_id'] = client_id
 
 
-@app.errorhandler(psutil.AccessDenied)
+@webapp.errorhandler(psutil.AccessDenied)
 def access_denied(e):
     errmsg = 'Access denied to %s (pid %d).' % (e.name, e.pid)
     return render_template('error.html', error=errmsg), 401
 
 
-@app.errorhandler(psutil.NoSuchProcess)
+@webapp.errorhandler(psutil.NoSuchProcess)
 def access_denied(e):
     errmsg = 'No process with pid %d was found.' % e.pid
     return render_template('error.html', error=errmsg), 404
 
+def fromtimestamp(value, dateformat='%Y-%m-%d %H:%M:%S'):
+    dt = datetime.fromtimestamp(int(value))
+    return dt.strftime(dateformat)
 
-@app.route('/')
+
+
+
+
+@webapp.route('/')
 @auth.login_required
 def index():
     sysinfo = current_service.get_sysinfo()
@@ -123,10 +130,10 @@ def index():
     return render_template('index.html', **data)
 
 
-@app.route('/processes', defaults={'sort': 'cpu_percent', 'order': 'desc', 'filter': 'user'})
-@app.route('/processes/<string:sort>')
-@app.route('/processes/<string:sort>/<string:order>')
-@app.route('/processes/<string:sort>/<string:order>/<string:filter>')
+@webapp.route('/processes', defaults={'sort': 'cpu_percent', 'order': 'desc', 'filter': 'user'})
+@webapp.route('/processes/<string:sort>')
+@webapp.route('/processes/<string:sort>/<string:order>')
+@webapp.route('/processes/<string:sort>/<string:order>/<string:filter>')
 @auth.login_required
 def processes(sort='pid', order='asc', filter='user'):
     procs = current_service.get_process_list()
@@ -155,8 +162,8 @@ def processes(sort='pid', order='asc', filter='user'):
     )
 
 
-@app.route('/process/<int:pid>', defaults={'section': 'overview'})
-@app.route('/process/<int:pid>/<string:section>')
+@webapp.route('/process/<int:pid>', defaults={'section': 'overview'})
+@webapp.route('/process/<int:pid>/<string:section>')
 @auth.login_required
 def process(pid, section):
     valid_sections = [
@@ -209,7 +216,7 @@ def process(pid, section):
     )
 
 
-@app.route('/network')
+@webapp.route('/network')
 @auth.login_required
 def view_networks():
     netifs = current_service.get_network_interfaces().values()
@@ -259,7 +266,7 @@ def view_networks():
     )
 
 
-@app.route('/disks')
+@webapp.route('/disks')
 @auth.login_required
 def view_disks():
     disks = current_service.get_disks(all_partitions=True)
@@ -274,11 +281,10 @@ def view_disks():
     )
 
 
-@app.route('/logs')
+@webapp.route('/logs')
 @auth.login_required
 def view_logs():
     available_logs = current_service.get_logs()
-    print available_logs
     available_logs.sort(cmp=lambda x1, x2: locale.strcoll(x1['path'], x2['path']))
     return render_template(
         'logs.html',
@@ -288,7 +294,7 @@ def view_logs():
     )
 
 
-@app.route('/log')
+@webapp.route('/log')
 @auth.login_required
 def view_log():
     filename = request.args['filename']
@@ -306,7 +312,7 @@ def view_log():
     return render_template('log.html', content=content, filename=filename)
 
 
-@app.route('/log/search')
+@webapp.route('/log/search')
 @auth.login_required
 def search_log():
     filename = request.args['filename']
@@ -319,7 +325,7 @@ def search_log():
         return 'Could not find log file with given filename', 404
 
 
-@app.route('/register')
+@webapp.route('/register')
 def register_node():
     name = request.args['name']
     port = request.args['port']
