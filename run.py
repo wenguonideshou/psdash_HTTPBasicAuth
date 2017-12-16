@@ -1,4 +1,5 @@
 #coding:utf-8
+import time
 import gevent
 from gevent.monkey import patch_all
 patch_all()
@@ -25,8 +26,9 @@ class DashRunner(PsDashRunner):
     def _create_app(self, config=None):
         app = Flask(__name__)
         #app.debug=True
-        from web import fromtimestamp
+        from web import fromtimestamp,hostoverview
         app.add_template_filter(fromtimestamp)
+        app.add_template_filter(hostoverview)
         app.config.PSDASH_REGISTER_INTERVAL = 10
         app.psdash = self
         app.config.from_envvar('PSDASH_CONFIG', silent=True)

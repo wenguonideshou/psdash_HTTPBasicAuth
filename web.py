@@ -103,9 +103,34 @@ def access_denied(e):
 def fromtimestamp(value, dateformat='%Y-%m-%d %H:%M:%S'):
     dt = datetime.fromtimestamp(int(value))
     return dt.strftime(dateformat)
+    
 
+def hostoverview(host):
+    service=host.get_service()
+    netifs=service.get_network_interfaces().values()
+    netifs.sort(key=lambda x: x.get('bytes_sent'), reverse=True)
+    sysinfo=service.get_sysinfo()
+    os=sysinfo['os'].split('-')[-3]
+    uptime=str(timedelta(seconds=sysinfo['uptime'])).split('.')[0]
+    data = {
+        'os': os,
+        'sysinfo': sysinfo,
+        'memory': service.get_memory(),
+        'swap': service.get_swap_space(),
+        'disks': service.get_disks(),
+        'cpu': service.get_cpu(),
+        'users': service.get_users(),
+        'net_interfaces': netifs,
+        'uptime': uptime,
+    }
+    return data
 
+    
+@webapp.route('/all')
+@auth.login_required
+def all():
 
+    return render_template('all.html')
 
 
 @webapp.route('/')

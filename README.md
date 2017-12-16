@@ -1,8 +1,8 @@
 # psdash_HTTPBasicAuth
 
-简介：基于psdash的基础上添加httpbasicauth（也就是打开页面弹出提示框，要输入用户名密码），可自定义模板
+简介：在psdash的基础上添加httpbasicauth（也就是打开页面弹出提示框，要输入用户名密码），可自定义模板，可以理解为psdash的中文版分支
 
-功能：psdash的所有功能—支持多节点/集群部署，所有数据每3秒自动更新，无需手动刷新页面；
+功能：psdash是基于psutil、zerorpc的python语言开发的主机监控面板，本分支包含psdash的所有功能—支持多节点/集群部署，所有数据每3秒自动更新，无需手动刷新页面；
     
         总览页：支持查看 cpu, disks, network, users, memory, swap , network
         进程：进程列表，并展示每个进程详情，包括打开的文件数、打开的连接数、内存占用、子进程、资源限制
@@ -13,9 +13,24 @@
 # 安装
 
 **1.主节点和agent节点都执行下面的命令(安装psdash)**
+
+>\# pip install psdash --allow-external argparse
+
+如果上面的命令安装不成功则执行下面的命令
+
 >Debian/Ubuntu:
 
 >>\# apt-get install build-essential python-dev -y
+
+>>\# apt-get install python-setuptools  -y
+
+>>\# git clone https://github.com/Jahaja/psdash.git 
+
+>>\# cd psdash 
+
+>>\# pip install -U setuptools
+
+>>\# python setup.py install
 
 >RHEL (Fedora, CentOS):
 
@@ -75,3 +90,14 @@ xxx为下面的参数, yyy为值, 比如
 修改用户名密码：
 
     修改web.py里的users = {"admin": "admin",}   前面是用户名后面是密码，可以添加多个用户
+
+**修改刷新的时间间隔**
+
+修改static/js/psdash.js里的3000这个数字
+修改templates/all.html里的5000这个数字
+
+**如何卸载：**
+
+pip uninstall psdash
+
+然后rm -r /root/psdash_HTTPBasicAuth
