@@ -18,7 +18,7 @@ logger = logging.getLogger('psdash.web')
 webapp = Blueprint('psdash', __name__, static_folder='static')
 
 users = {
-    "admin": "anlu",
+    "admin": "admin",
 }
 
 
