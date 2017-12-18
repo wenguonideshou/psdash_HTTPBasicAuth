@@ -107,3 +107,5 @@ xxx为下面的参数, yyy为值, 比如
 pip uninstall psdash
 
 然后rm -r /root/psdash_HTTPBasicAuth
+
+![面板](https://s1.ax1x.com/2017/12/18/OYE60.jpg)
