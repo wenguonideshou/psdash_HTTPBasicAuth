@@ -14,10 +14,10 @@
                         <th>已接收字节数</th>
                         <th>已发送数据包</th>
                         <th>已接收数据包</th>
-                        <th>接收的坏数据包</th>
-                        <th>发送的坏数据包</th>
-                        <th>丢弃的已接收数据包</th>
-                        <th>丢弃的已发送数据包</th>
+                        <th>已接收坏数据包</th>
+                        <th>已发送坏数据包</th>
+                        <th>已丢弃接收数据包</th>
+                        <th>已丢弃发送数据包</th>
                         <th>每秒接收字节数(RX/s)</th>
                         <th>每秒发送字节数(TX/s)</th>
                     </tr>
@@ -35,8 +35,8 @@
                         <td>{{ io.errors_out }}</td>
                         <td>{{ io.dropped_in }}</td>
                         <td>{{ io.dropped_out }}</td>
-                        <td>{{ io.send_rate|default(0)|filesizeformat }}</td>
-                        <td>{{ io.recv_rate|default(0)|filesizeformat }}</td>
+                        <td>{{ io.send_rate|default(0)|filesizeformat }}/s</td>
+                        <td>{{ io.recv_rate|default(0)|filesizeformat }}/s</td>
                     </tr>
                     {% endfor %}
                 </tbody>
