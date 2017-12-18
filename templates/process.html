@@ -36,7 +36,7 @@
                     </a>
                 </li>
                 <li {% if section == "limits" %}class="active"{% endif %}>
-                    <a href="{{ url_for(".process", pid=process.pid, section="limits") }}">文件描述符</a>
+                    <a href="{{ url_for(".process", pid=process.pid, section="limits") }}">资源限制</a>
                 </li>
             </ul>
             {% block process_content %}{% endblock %}
