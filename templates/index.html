@@ -16,7 +16,7 @@
                         <td class="user">{{ cpu.user }} %</td>
                     </tr>
                     <tr>
-                        <td class="label-col">系统占用</td>
+                        <td class="label-col">内核占用</td>
                         <td class="system">{{ cpu.system }} %</td>
                     </tr>
                     <tr>
@@ -45,12 +45,12 @@
                         <td class="total">{{ memory.total|filesizeformat }}</td>
                     </tr>
                     <tr>
-                        <td class="label-col">可用内存<small>(cache &amp; buffers)</small></td>
-                        <td class="available">{{ memory.available|filesizeformat }}</td>
-                    </tr>
-                    <tr>
                         <td class="label-col">已使用<small>(cache &amp; buffers)</small></td>
                         <td class="used_excl">{{ (memory.total - memory.available)|filesizeformat }} ({{ memory.percent }} %)</td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">可用内存<small>(cache &amp; buffers)</small></td>
+                        <td class="available">{{ memory.available|filesizeformat }}</td>
                     </tr>
                     <tr>
                         <td class="label-col">已使用<small>(不含cache &amp; buffers)</small></td>
