@@ -2,7 +2,7 @@
 {% block content %}
     <div class="box">
         <div class="box-header">
-            <span>网络流量</span>
+            <span>网卡流量</span>
         </div>
         <div class="box-content">
             <table class="table">
@@ -10,16 +10,16 @@
                     <tr>
                         <th>网卡</th>
                         <th>IP地址</th>
-                        <th>Bytes sent</th>
-                        <th>Bytes recv</th>
-                        <th>Packets sent</th>
-                        <th>Packets recv</th>
-                        <th>Errors in</th>
-                        <th>Errors out</th>
-                        <th>Dropped in</th>
-                        <th>Dropped out</th>
-                        <th>RX/s</th>
-                        <th>TX/s</th>
+                        <th>已发送字节数</th>
+                        <th>已接收字节数</th>
+                        <th>已发送数据包</th>
+                        <th>已接收数据包</th>
+                        <th>接收的坏数据包</th>
+                        <th>发送的坏数据包</th>
+                        <th>丢弃的已接收数据包</th>
+                        <th>丢弃的已发送数据包</th>
+                        <th>每秒接收的字节数(RX/s)</th>
+                        <th>每秒发送的字节数(TX/s)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,14 +47,14 @@
     <div class="box">
         <div class="box-header">
             <span>网络连接</span>
-            <small class="pull-right">查询出 {{ connections|count() }} 个网络连接</small>
+            <small class="pull-right">找到 {{ connections|count() }} 个网络连接</small>
         </div>
         <div class="box-content">
             <form id="connections-form" action="" method="get">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>FD</th>
+                            <th>文件描述符</th>
                             <th>进程ID</th>
                             <th>协议簇</th>
                             <th>套接字类型</th>
