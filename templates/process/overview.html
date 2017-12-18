@@ -7,7 +7,7 @@
         </tr>
         {% if process.parent_name %}
         <tr>
-            <td>父进程</td>
+            <td>父进程(ID)</td>
             <td><a href="{{ url_for(".process", pid=process.ppid) }}">{{ process.parent_name }}</a> ({{ process.ppid }})</td>
         </tr>
         {% endif %}
@@ -22,7 +22,7 @@
             <td>{{ process.user or "-"}}</td>
         </tr>
         <tr>
-            <td>User ids</td>
+            <td>用户ID</td>
             <td>
                 <table class="table table-bordered">
                     <tr>
@@ -41,7 +41,7 @@
             </td>
         </tr>
         <tr>
-            <td>Group ids</td>
+            <td>组ID</td>
             <td>
                 <table class="table table-bordered">
                     <tr>
@@ -65,11 +65,11 @@
             <td>
                 <table class="table table-bordered">
                     <tr>
-                        <td>rss</td>
+                        <td>虚拟内存(rss)</td>
                         <td>{{ process.mem_rss|filesizeformat }}</td>
                     </tr>
                     <tr>
-                        <td>vms</td>
+                        <td>物理内存(vms)</td>
                         <td>{{ process.mem_vms|filesizeformat }}</td>
                     </tr>
                     <tr>
@@ -116,7 +116,7 @@
             <td>{{ process.cwd.decode("utf-8") }}</td>
         </tr>
         <tr>
-            <td>文件描述符</td>
+            <td>打开文件数</td>
             <td>{{ process.num_files }}</td>
         </tr>
         <tr>
@@ -139,7 +139,7 @@
             </td>
         </tr>
         <tr>
-            <td>CPU times</td>
+            <td>CPU时间</td>
             <td>
                 <table class="table table-bordered">
                     <tr>
@@ -154,7 +154,7 @@
             </td>
         </tr>
         <tr>
-            <td>CPU affinity</td>
+            <td>CPU亲和性</td>
             <td>{{ process.cpu_affinity|join(", ") }}</td>
         </tr>
     </table>
