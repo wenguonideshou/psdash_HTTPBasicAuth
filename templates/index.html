@@ -45,7 +45,7 @@
                         <td class="total">{{ memory.total|filesizeformat }}</td>
                     </tr>
                     <tr>
-                        <td class="label-col">可用内存(cache &amp; buffers)</td>
+                        <td class="label-col">可用内存<small>( cache &amp; buffers)</small></td>
                         <td class="available">{{ memory.available|filesizeformat }}</td>
                     </tr>
                     <tr>
@@ -138,11 +138,11 @@
                         <td class="free">{{ swap.free|filesizeformat }}</td>
                     </tr>
                     <tr>
-                        <td class="label-col">Swapped in</td>
+                        <td class="label-col">换入</td>
                         <td class="swapped-in">{{ swap.swapped_in|filesizeformat }}</td>
                     </tr>
                     <tr>
-                        <td class="label-col">Swapped out</td>
+                        <td class="label-col">换出</td>
                         <td class="swapped-out">{{ swap.swapped_out|filesizeformat }}</td>
                     </tr>
                 </table>
