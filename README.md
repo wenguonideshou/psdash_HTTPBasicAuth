@@ -14,15 +14,16 @@
 
 **1.主节点和agent节点都执行下面的命令(安装psdash)**
 
->\# pip install psdash --allow-external argparse
-
-如果上面的命令安装不成功则执行下面的命令
 
 >Debian/Ubuntu:
 
 >>\# apt-get install build-essential python-dev -y
 
 >>\# apt-get install python-setuptools  -y
+
+>>\# pip install psdash --allow-external argparse
+
+>>如果上面的命令安装不成功则执行下面的命令
 
 >>\# git clone https://github.com/Jahaja/psdash.git 
 
@@ -39,6 +40,10 @@
 >>\# yum install python-devel  -y
 
 >>\# yum install python-setuptools  -y
+
+>>\# pip install psdash --allow-external argparse
+
+>>如果上面的命令安装不成功则执行下面的命令
 
 >>\# git clone https://github.com/Jahaja/psdash.git 
 
