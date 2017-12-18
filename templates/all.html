@@ -5,7 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>PSdash - 简便的Linux系统管理面板</title>
-        <link href="{{ url_for(".static", filename="css/give.css") }}" rel="stylesheet">
+        <link href="{{ url_for(".static", filename="css/bootstrap.min.css") }}" rel="stylesheet">
+        <link href="{{ url_for(".static", filename="css/light.css") }}" rel="stylesheet">
+
       <!--  <script src="{{ url_for(".static", filename="js/echarts.min.js") }}"></script>
         <script src="{{ url_for(".static", filename="js/macarons.js") }}"></script>  -->
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -18,56 +20,67 @@
     <body>
     
        <div id="psdash">
-	<center class="head">
-		<span class="h3">主机监控面板</span>
-	</center>
+     <h3 class="text-center">主机监控面板</h3>
+
+  <div class="container content"> 
+  <div id="main-content">
+  
+   <table class="table table-striped table-condensed table-hover"> 
+    <thead> 
+     <tr> 
+      <th>状态</th> 
+      <th>节点名</th> 
+      <th>节点IP</th> 
+      <th>OS</th> 
+      <th>负载</th> 
+      <th>在线时间</th> 
+      <th>带宽</th> 
+      <th>流量</th> 
+      <th>CPU</th> 
+      <th>内存</th> 
+      <th>硬盘</th> 
+      <th>SWAP</th> 
+      <th>在线用户</th> 
+      <th>详情</th> 
+     </tr> 
+    </thead> 
+
     
-       <div id="main-content">
+    <tbody id="servers"> 
+     <!-- Servers here \o/ --> 
+     	       {% for id, n in nodes.iteritems() %}
 
-	<table id="servers_list_table" border="0" cellspacing="1" cellpadding="8" class="table table-hover tablesorter table-striped" align="center" width="100%">
-	<thead>
-	<tr>
-	<th width="10px">状态</th>
-	<th width="10px">节点名</th>
-	<th width="10px">节点IP</th>
-	<th width="30px">OS</th>
-	<th width="30px">负载</th>
-	<th width="30px">CPU使用</th>
-	<th width="30px">内存使用</th>
-	<th width="30px">磁盘使用</th>
-	<th width="10px">SWAP使用</th>
-	<th width="60px">网络带宽</th>
-	<th width="50px">在线用户</th>
-	<th width="90px">在线时间</th>
-	<th width="30px">详情</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	       {% for id, n in nodes.iteritems() %}
 	      	 {% set x=n|hostoverview %}
-	<tr>
-	<td align="center"><img class="vpslist" src="{% if n.last_registered or id=="localhost" %}/static/images/online.png{% else %}/static/images/offline.png{% endif %}"></td>
-	<td align="center">{{n.name}}</td>
-	<td align="center">{{id}}</td>
-	<td align="center"><img src="/static/images/{{x.os if x.os else "others"}}.gif"></td>
-	<td align="center"><span id="load">{{x.sysinfo.load_avg[0]}}, {{x.sysinfo.load_avg[1]}}, {{x.sysinfo.load_avg[2]}}</span></td>
-	<td align="center"><span id="cpu{{ loop.index }} width: 50px; height:50px; display: inline-block; vertical-align: top;" >{{100-x.cpu.idle}} %</span></td>
-	<td align="center"><span id="ram{{ loop.index }} width: 50px; height:50px; display: inline-block; vertical-align: top;" >{{x.memory.percent if x.memory else 0}} %</span></td>
-	<td align="center"><span id="disk{{ loop.index }} width: 50px; height:50px; display: inline-block; vertical-align: top;" >{%if x.disks[0]%} {{x.disks[0].space_used_percent}}% {%endif%}</span></td>
-	<td align="center"><span id="swap{{ loop.index }} width: 50px; height:50px; display: inline-block; vertical-align: top;" >{{x.swap.percent if x.swap else 0}} %</span></td>
-	<td align="center">{{x.net_interfaces[0].recv_rate|filesizeformat}} /s ↓<br>{{x.net_interfaces[0].send_rate|filesizeformat}} /s ↑</td>
-	<td align="center">{{x.users|count}}</td>
-	<td align="center">{{x.uptime}}</td>
-	<td align="center"><a href="{{url_for('.index',node=id)}}"><img width="16" height="16" src="{{ url_for(".static", filename="images/arrow_right.png") }}"></a></td>
-	</tr>
-	  	 {% endfor %}
-	</tbody>
-	</table>
+	      	
+<tr id="r0" data-toggle="collapse" data-target="#rt0" class="accordion-toggle even">
+      <td id="online"><img src="{% if n.last_registered or id=="localhost" %}/static/images/online.png{% else %}/static/images/offline.png{% endif %}"></td>
+      <td id="name">{{n.name}}</td>
+      <td id="ip">{{id}}</td>
+      <td id="os"><img src="/static/images/{{x.os if x.os else "others"}}.gif" height="31" width="31"></td>
+      <td id="load">{{x.sysinfo.load_avg[0]}}, {{x.sysinfo.load_avg[1]}}, {{x.sysinfo.load_avg[2]}}</td>
+      <td id="uptime">{{x.uptime}}</td>
+      <td id="network">{{x.net_interfaces[0].recv_rate|filesizeformat}} /s ↓<br>{{x.net_interfaces[0].send_rate|filesizeformat}} /s ↑</td>
+      <td id="traffic">{{x.net_interfaces[0].bytes_recv|filesizeformat}} ↓<br>{{x.net_interfaces[0].bytes_sent|filesizeformat}} ↑</td>
+      <td id="cpu"><div class="progress progress-striped active"><div style="width: {{100-x.cpu.idle}}%;" class="progress-bar {% if (100-x.cpu.idle)>80 %}progress-bar-warning{% elif (100-x.cpu.idle)>90 %}progress-bar-danger{% else %}progress-bar-success{% endif %}">{{100-x.cpu.idle}}%</div></div></td>
+      <td id="memory"><div class="progress progress-striped active"><div style="width: {{x.memory.percent if x.memory else 0}}%;" class="progress-bar {% if (100-x.cpu.idle)>80 %}progress-bar-warning{% elif (100-x.cpu.idle)>90 %}progress-bar-danger{% else %}progress-bar-success{% endif %}">{{x.memory.percent if x.memory else 0}}%</div></div></td>
+      <td id="hdd"><div class="progress progress-striped active"><div style="width: {%if x.disks[0]%} {{x.disks[0].space_used_percent}}% {%endif%}%;" class="progress-bar {% if (100-x.cpu.idle)>80 %}progress-bar-warning{% elif (100-x.cpu.idle)>90 %}progress-bar-danger{% else %}progress-bar-success{% endif %}">{%if x.disks[0]%} {{x.disks[0].space_used_percent}}% {%endif%}%</div></div></td>
+      <td id="swap"><div class="progress progress-striped active"><div style="width: {{x.swap.percent if x.swap else 0}}%;" class="progress-bar progress-bar-success">{{x.swap.percent if x.swap else 0}}%</div></div></td>
+      <td id="users">{{x.users|count}}</td>
+      <td id="detail"><a href="{{url_for('.index',node=id)}}"><img width="16" height="16" src="{{ url_for(".static", filename="images/arrow_right.png") }}"></a></td>
+     </tr>
 
+     {% endfor %}
+    </tbody> 
+   </table> 
+   <br /> 
+   <div id="updated">
+    最后更新: {{updatetime}}
+   </div> 
+  </div>
 
-       </div>
-   </div>
+  
+</div>
+
 
 
 
