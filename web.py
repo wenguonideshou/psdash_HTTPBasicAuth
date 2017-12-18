@@ -129,8 +129,8 @@ def hostoverview(host):
 @webapp.route('/all')
 @auth.login_required
 def all():
-
-    return render_template('all.html')
+    updatetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    return render_template('all.html',updatetime=updatetime)
 
 
 @webapp.route('/')
@@ -357,5 +357,3 @@ def register_node():
     host = request.remote_addr
     current_app.psdash.register_node(name, host, port)
     return jsonify({'status': 'OK'})
-
-
