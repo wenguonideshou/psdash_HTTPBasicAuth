@@ -56,7 +56,7 @@
       <td id="online"><img src="{% if n.last_registered or id=="localhost" %}/static/images/online.png{% else %}/static/images/offline.png{% endif %}"></td>
       <td id="name">{{n.name}}</td>
       <td id="ip">{{id}}</td>
-      <td id="os"><img src="/static/images/{{x.os if x.os else "others"}}.gif" height="31" width="31"></td>
+      <td id="os"><img src="/static/images/{{x.os if x.os else "others"}}.gif"></td>
       <td id="load">{{x.sysinfo.load_avg[0]}}, {{x.sysinfo.load_avg[1]}}, {{x.sysinfo.load_avg[2]}}</td>
       <td id="uptime">{{x.uptime}}</td>
       <td id="network">{{x.net_interfaces[0].recv_rate|filesizeformat}} /s ↓<br>{{x.net_interfaces[0].send_rate|filesizeformat}} /s ↑</td>
@@ -74,7 +74,7 @@
    </table> 
    <br /> 
    <div id="updated">
-    最后更新: {{updatetime}}
+    最后更新： {{updatetime}}
    </div> 
   </div>
 
