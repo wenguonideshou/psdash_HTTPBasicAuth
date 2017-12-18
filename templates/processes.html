@@ -47,11 +47,11 @@
                             {{ order_icon|safe if sort == "created"}}
                         </th>
                         <th title="Resident Set Size">
-                            <a href="{{ url_for(".processes", sort="mem_rss", order=next_order, filter=filter) }}">RSS</a>
+                            <a href="{{ url_for(".processes", sort="mem_rss", order=next_order, filter=filter) }}">虚拟内存(RSS)</a>
                             {{ order_icon|safe if sort == "mem_rss"}}
                         </th>
                         <th title="Virtual Memory Size">
-                            <a href="{{ url_for(".processes", sort="mem_vms", order=next_order, filter=filter) }}">VMS</a>
+                            <a href="{{ url_for(".processes", sort="mem_vms", order=next_order, filter=filter) }}">物理内存(VMS)</a>
                             {{ order_icon|safe if sort == "mem_vms"}}
                         </th>
                         <th>
