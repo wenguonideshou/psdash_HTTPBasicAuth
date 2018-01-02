@@ -100,7 +100,7 @@ xxx为下面的参数, yyy为值, 比如
 
 修改static/js/psdash.js里的3000这个数字
 
-修改templates/all.html里的5000这个数字
+修改templates/all.html里的3000这个数字
 
 **如何卸载：**
 
