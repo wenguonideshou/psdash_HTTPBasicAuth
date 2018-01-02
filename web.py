@@ -103,34 +103,47 @@ def access_denied(e):
 def fromtimestamp(value, dateformat='%Y-%m-%d %H:%M:%S'):
     dt = datetime.fromtimestamp(int(value))
     return dt.strftime(dateformat)
-    
-
-def hostoverview(host):
-    service=host.get_service()
-    netifs=service.get_network_interfaces().values()
-    netifs.sort(key=lambda x: x.get('bytes_sent'), reverse=True)
-    sysinfo=service.get_sysinfo()
-    os=sysinfo['os'].split('-')[-3]
-    uptime=str(timedelta(seconds=sysinfo['uptime'])).split('.')[0]
-    data = {
-        'os': os,
-        'sysinfo': sysinfo,
-        'memory': service.get_memory(),
-        'swap': service.get_swap_space(),
-        'disks': service.get_disks(),
-        'cpu': service.get_cpu(),
-        'users': service.get_users(),
-        'net_interfaces': netifs,
-        'uptime': uptime,
-    }
-    return data
 
     
 @webapp.route('/all')
 @auth.login_required
 def all():
+    nodes=current_app.psdash.get_nodes()
+    services=[current_app.psdash.get_node(ip).get_service() for ip, name in nodes.items()]
+    names=[name.name for ip, name in nodes.items()]
+    ips=[ip for ip, name in nodes.items()]
+    netifss=[]
+    for service in services:
+        netifs = service.get_network_interfaces().values()
+        netifs.sort(key=lambda x: x.get('bytes_sent'), reverse=True)
+        netifss.append(netifs[0])
+    sysinfos = [service.get_sysinfo() for service in services]
+    oss = [sysinfo['os'].split('-')[-3] for sysinfo in sysinfos]
+    memorys = [service.get_memory() for service in services]
+    swaps = [service.get_swap_space() for service in services]
+    diskss = [service.get_disks() for service in services]
+    cpus = [service.get_cpu() for service in services]
+    userss = [service.get_users() for service in services]
+    uptimes = [str(timedelta(seconds=sysinfo['uptime'])).split('.')[0] for sysinfo in sysinfos]
+    #print netifss,sysinfos,oss,memorys,swaps,diskss,cpus,userss,uptimes
+    datas=[]
+    for name,ip,netifs,sysinfo,os,memory,swap,disks,cpu,users,uptime in zip(names,ips,netifss,sysinfos,oss,memorys,swaps,diskss,cpus,userss,uptimes):
+        data = {
+        'name':name,
+        'ip':ip,
+	   'os': os,
+	   'sysinfo': sysinfo,
+	   'memory': memory,
+	   'swap': swap,
+	   'disks': disks,
+	   'cpu': cpu,
+	   'users': users,
+	   'netifs': netifs,
+	   'uptime': uptime,
+	   }
+        datas.append(data) 
     updatetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    return render_template('all.html',updatetime=updatetime)
+    return render_template('all.html', datas=datas, updatetime=updatetime)
 
 
 @webapp.route('/')
