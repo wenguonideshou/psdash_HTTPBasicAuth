@@ -1,6 +1,6 @@
 # psdash_HTTPBasicAuth
 
-简介：在psdash的基础上添加httpbasicauth（也就是打开页面弹出提示框，要输入用户名密码），可自定义模板，可以理解为psdash的中文版分支
+简介：在psdash的基础上添加httpbasicauth（也就是打开页面弹出提示框，要输入用户名密码），界面翻译为中文，增加展示所有节点基本状态的主界面，可以理解为psdash的中文版分支
 
 功能：psdash是基于psutil、zerorpc的python语言开发的主机监控面板，本分支包含psdash的所有功能—支持多节点/集群部署，所有数据每3秒自动更新，无需手动刷新页面；
     
