@@ -14,58 +14,80 @@
 
 **1.主节点和agent节点都执行下面的命令(安装psdash)**
 
+Debian/Ubuntu:
 
->Debian/Ubuntu:
+```bash
 
->>\# apt-get install build-essential python-dev -y
+apt-get install build-essential python-dev -y
 
->>\# apt-get install python-setuptools  -y
+apt-get install python-setuptools  -y
 
->>\# pip install psdash --allow-external argparse
+pip install psdash --allow-external argparse
 
->>如果上面的命令安装不成功则执行下面的命令
+```
+如果上面的命令安装不成功则执行下面的命令
 
->>\# git clone https://github.com/Jahaja/psdash.git 
+```bash
 
->>\# cd psdash 
+git clone https://github.com/Jahaja/psdash.git 
 
->>\# pip install -U setuptools
+cd psdash 
 
->>\# python setup.py install
+pip install -U setuptools
 
->RHEL (Fedora, CentOS):
+python setup.py install
 
->>\# yum groupinstall "Development Tools"  -y
+```
 
->>\# yum install python-devel  -y
+RHEL (Fedora, CentOS):
 
->>\# yum install python-setuptools  -y
+```bash
 
->>\# pip install psdash --allow-external argparse
+yum groupinstall "Development Tools"  -y
 
->>如果上面的命令安装不成功则执行下面的命令
+yum install python-devel  -y
 
->>\# git clone https://github.com/Jahaja/psdash.git 
+yum install python-setuptools  -y
 
->>\# cd psdash 
+pip install psdash --allow-external argparse
 
->>\# pip install -U setuptools
+```
 
->>\# python setup.py install
+如果上面的命令安装不成功则执行下面的命令
+
+```bash
+
+git clone https://github.com/Jahaja/psdash.git 
+
+cd psdash 
+
+pip install -U setuptools
+
+python setup.py install
+
+```
 
 **2.主节点执行**
 
->\# pip install flask-httpauth
+```bash
 
->\# git clone https://github.com/wenguonideshou/psdash_HTTPBasicAuth.git
+pip install flask-httpauth
 
->\# cd psdash_HTTPBasicAuth
+git clone https://github.com/wenguonideshou/psdash_HTTPBasicAuth.git
 
->\# python run.py -l '/var/log/**/*.log'     
+cd psdash_HTTPBasicAuth
+
+python run.py -l '/var/log/**/*.log'
+
+```
 
 **3.agent节点执行**
 
->\# psdash -a --register-as xxx -l '/var/log/**/*.log' --register-to http://主节点IP:5000
+```bash
+
+psdash -a --register-as xxx -l '/var/log/**/*.log' --register-to http://主节点IP:5000
+
+```
 
 ## 如何修改参数？
 
@@ -104,8 +126,12 @@ xxx为下面的参数, yyy为值, 比如
 
 **如何卸载：**
 
+```bash
+
 pip uninstall psdash
 
-然后rm -r /root/psdash_HTTPBasicAuth
+rm -r /root/psdash_HTTPBasicAuth
+
+```
 
 ![面板](https://s1.ax1x.com/2017/12/18/OYE60.jpg)
