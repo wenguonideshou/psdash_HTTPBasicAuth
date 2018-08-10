@@ -24,10 +24,7 @@ apt-get install python-setuptools  -y
 
 pip install psdash --allow-external argparse
 
-```
 如果上面的命令安装不成功则执行下面的命令
-
-```bash
 
 git clone https://github.com/Jahaja/psdash.git 
 
@@ -51,11 +48,7 @@ yum install python-setuptools  -y
 
 pip install psdash --allow-external argparse
 
-```
-
 如果上面的命令安装不成功则执行下面的命令
-
-```bash
 
 git clone https://github.com/Jahaja/psdash.git 
 
@@ -97,26 +90,31 @@ app.config.xxx = yyy
 
 xxx为下面的参数, yyy为值, 比如
 
-    app.config.PSDASH_ALLOWED_REMOTE_ADDRESSES = "10.0.0.2, 192.29.20.2"
-    app.config.PSDASH_URL_PREFIX = "/psdash"
-    app.config.PSDASH_LOG_LEVEL = logging.INFO
-    app.config.PSDASH_LOG_LEVEL = "%(levelname)s"
-    app.config.PSDASH_NODES = [{'name': 'mywebnode', 'host': '10.0.0.2', 'port': 5000}]
-    app.config.PSDASH_NET_IO_COUNTER_INTERVAL = 3
-    app.config.PSDASH_LOGS_INTERVAL = 60
-    app.config.PSDASH_REGISTER_INTERVAL = 60
-    app.config.PSDASH_LOGS	= ['/var/log/*.log']
-    app.config.PSDASH_REGISTER_TO = 'http://10.0.20.2:5000'
-    app.config.PSDASH_REGISTER_AS = 'myvps'
-    app.config.PSDASH_HTTPS_KEYFILE = '/home/user/private.key'
-    app.config.PSDASH_HTTPS_CERTFILE	= '/home/user/certificate.crt'
-    app.config.PSDASH_ENVIRON_WHITELIST = ['HOME']
+```bash
 
-参数详细说明请参考https://github.com/Jahaja/psdash#configuration
+app.config.PSDASH_ALLOWED_REMOTE_ADDRESSES = "10.0.0.2, 192.29.20.2"
+app.config.PSDASH_URL_PREFIX = "/psdash"
+app.config.PSDASH_LOG_LEVEL = logging.INFO
+app.config.PSDASH_LOG_LEVEL = "%(levelname)s"
+app.config.PSDASH_NODES = [{'name': 'mywebnode', 'host': '10.0.0.2', 'port': 5000}]
+app.config.PSDASH_NET_IO_COUNTER_INTERVAL = 3
+app.config.PSDASH_LOGS_INTERVAL = 60
+app.config.PSDASH_REGISTER_INTERVAL = 60
+app.config.PSDASH_LOGS	= ['/var/log/*.log']
+app.config.PSDASH_REGISTER_TO = 'http://10.0.20.2:5000'
+app.config.PSDASH_REGISTER_AS = 'myvps'
+app.config.PSDASH_HTTPS_KEYFILE = '/home/user/private.key'
+app.config.PSDASH_HTTPS_CERTFILE	= '/home/user/certificate.crt'
+app.config.PSDASH_ENVIRON_WHITELIST = ['HOME']
 
-修改用户名密码：
+```
 
-    修改web.py里的users = {"admin": "admin",}   前面是用户名后面是密码，可以添加多个用户
+详细参数说明请参考https://github.com/Jahaja/psdash#configuration
+
+**修改用户名密码**
+
+修改web.py里的users = {"admin": "admin",}   前面是用户名后面是密码，可以添加多个用户
+
 
 **修改刷新的时间间隔**
 
@@ -124,7 +122,7 @@ xxx为下面的参数, yyy为值, 比如
 
 修改templates/all.html里的3000这个数字
 
-**如何卸载：**
+**卸载**
 
 ```bash
 
@@ -135,3 +133,10 @@ rm -r /root/psdash_HTTPBasicAuth
 ```
 
 ![面板](https://s1.ax1x.com/2017/12/18/OYE60.jpg)
+![面板](https://s1.ax1x.com/2017/12/15/LmM4O.png)
+![面板](https://s1.ax1x.com/2017/12/15/LmuE6.png)
+![面板](https://s1.ax1x.com/2017/12/15/LmeD1.png)
+![面板](https://s1.ax1x.com/2017/12/15/LmZuR.png)
+![面板](https://s1.ax1x.com/2017/12/15/LmKUK.png)
+![面板](https://s1.ax1x.com/2017/12/15/LmM4O.png)
+![面板](https://s1.ax1x.com/2017/12/15/LmlCD.png)
